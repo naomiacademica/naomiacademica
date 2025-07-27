@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Naomi Academica</title>
+    <link rel="icon" type="image/jpg" href="img/pfp.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --bg-overlay: rgba(154, 205, 50, 0.9);
+            --text-color: #333333;
+            --text-secondary: #666666;
+            --accent-color: #9acd32;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .gallery-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-overlay);
+            padding: 1rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .gallery-nav h1 {
+            color: white;
+            font-weight: 600;
+        }
+
+        .gallery-grid {
+            margin-top: 70px;
+            padding: 10px;
+            columns: 1;
+            column-gap: 10px;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s ease;
+            border-radius: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-grid {
+                columns: 2;
+                column-gap: 15px;
+                padding: 15px;
+                margin-top: 80px;
+            }
+
+            .gallery-item {
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                columns: 3;
+                column-gap: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="gallery-nav">
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Portfolio</span>
+        </a>
+        <h1>#createdbynaomi</h1>
+    </nav>
+
+
+        <div class="gallery-grid">
+        </div>
+
+    <script>
+        const apiKey = '7172154ddd38c90b0ac236691e4d98f6';
+        const apiKey = 'b827297202fa1ce1d2dd48243abb9eea';
+        const apiKey = 'bb55fcef9eb9e6fec833b0b95fec9c4e';
+        const galleryGrid = document.querySelector('.gallery-grid');
+
+        async function loadGalleryImages() {
+            try {
+                // Clear existing content
+                galleryGrid.innerHTML = '';
+
+                // Get images directly using the API
+                console.log('Fetching images...');
+                const response = await fetch(`https://api.imgbb.com/1/account/images?key=${apiKey}`);
+                const data = await response.json();
+                console.log('API response:', data);
+
+                if (!data.success) {
+                    throw new Error(`Failed to load images: ${data.error?.message || 'Unknown error'}`);
+                }
+
+                if (!data.data || !data.data.images || data.data.images.length === 0) {
+                    galleryGrid.innerHTML = '<p>No images found. Please upload some images to your ImgBB account.</p>';
+                    return;
+                }
+
+                // Get the first album's images
+                const album = albumsData.data[0];
+                console.log('Using album:', album);
+                
+                const imagesResponse = await fetch(`https://api.imgbb.com/1/album/${album.id}/images?key=${apiKey}`);
+                const imagesData = await imagesResponse.json();
+                console.log('Images response:', imagesData);
+
+                if (!imagesData.success) {
+                    throw new Error(`Failed to load images: ${imagesData.error?.message || 'Unknown error'}`);
+                }
+
+                if (!imagesData.data || imagesData.data.length === 0) {
+                    galleryGrid.innerHTML = '<p>No images found in the album. Please upload some images.</p>';
+                    return;
+                }
+
+                // Create gallery items for each image
+                imagesData.data.forEach(image => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = image.url;
+                    img.alt = image.title || '';
+                    
+                    galleryItem.appendChild(img);
+                    galleryGrid.appendChild(galleryItem);
+                });
+            } catch (error) {
+                console.error('Error loading gallery:', error);
+                galleryGrid.innerHTML = `
+                    <p>Error loading gallery: ${error.message}</p>
+                    <p>Please check the browser console for more details.</p>
+                `;
+            }
+        }
+
+        // Load images when page loads
+        loadGalleryImages();
+
+        // Refresh gallery every 5 minutes
+        setInterval(loadGalleryImages, 5 * 60 * 1000);
+    </script>
+</body>
+</html>

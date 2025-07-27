@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naomi Academica</title>
+    <link rel="icon" type="image/jpg" href="img/pfp.jpg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <div class="menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <ul>
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="gallery.html" class="nav-link">#createdbynaomi</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section id="home" class="section">
+            <div class="profile-img">
+                <img src="img/pfp.jpg" alt="Profile Picture">
+            </div>
+            <h1>Naomi Academica</h1>
+            <p class="title"></p>
+            <div class="social-links">
+                <a href="https://facebook.com/naomi.academica"><i class="fab fa-facebook"></i></a>
+                <a href="https://instagram.com/naomiacademica"><i class="fab fa-instagram"></i></a>
+                <a href="https://tiktok.com/@naomiacademica"><i class="fab fa-tiktok"></i></a>
+                <a href="https://x.com/naomiacademica"><i class="fab fa-twitter"></i></a>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <h2>About Me</h2>
+            <p>
+                In need of artistic dust and crafts?<br>
+                worry not! we are here to help a co-<br>
+                pixel dust. A bonafied assistant with<br>
+                a magic wand to help you pass<br>
+                w/ flying colors!
+            </p>
+            <div class="fp">
+                <img src="img/fp-1.jpg" alt="featured">
+                <img src="img/fp-2.jpg" alt="featured">
+            </div>
+            <div class="skills">
+                <span class="skill-tag">Academics</span>
+                <span class="skill-tag">Educ-related tasks</span>
+                <span class="skill-tag">Research Thesis</span>
+                <span class="skill-tag">Write-ups</span>
+            </div>
+        </section>
+
+        <section id="works" class="section">
+            <h2><a href="gallery.html" style="text-decoration: none; color: inherit;">#createdbynaomi</a></h2>
+            <div class="works-container">
+                <div class="categories">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="papers">Papers</button>
+                    <button class="category-btn" data-category="thesis">Thesis</button>
+                    <button class="category-btn" data-category="educational">Educational</button>
+                </div>
+
+                <div class="gallery-grid">
+                    <!-- Replace the src attributes with your ImgBB direct links -->
+                    <div class="gallery-item" data-category="papers">
+                        <img src="YOUR_IMGBB_LINK_1" alt="Academic Paper Example">
+                        <div class="gallery-overlay">
+                            <h3>Research Paper</h3>
+                            <p>Professional academic writing</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="thesis">
+                        <img src="YOUR_IMGBB_LINK_2" alt="Thesis Example">
+                        <div class="gallery-overlay">
+                            <h3>Thesis Work</h3>
+                            <p>Comprehensive research support</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="educational">
+                        <img src="YOUR_IMGBB_LINK_3" alt="Study Material">
+                        <div class="gallery-overlay">
+                            <h3>Study Guide</h3>
+                            <p>Custom learning materials</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="papers">
+                        <img src="YOUR_IMGBB_LINK_4" alt="Academic Writing">
+                        <div class="gallery-overlay">
+                            <h3>Term Paper</h3>
+                            <p>Academic excellence</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="contact-wrapper">
+            <section id="contact" class="section">
+            <h2>#emailnaomi</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+
+            <section id="social-feed" class="section">
+                <h2>#naomitimeline</h2>
+                <div class="fb-post">
+                    <div class="fb-wrapper">
+                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fweb.facebook.com%2Fnaomi.academica&tabs=timeline&width=500&height=800&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=false&appId" 
+                            width="100%" 
+                            height="800" 
+                            style="border:none;overflow:hidden;border-radius:10px;" 
+                            scrolling="yes" 
+                            frameborder="0" 
+                            allowfullscreen="true" 
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                        </iframe>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Mobile menu functionality
+        document.querySelector('.menu-btn').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.mobile-nav').classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.menu-btn').classList.remove('active');
+                document.querySelector('.mobile-nav').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
